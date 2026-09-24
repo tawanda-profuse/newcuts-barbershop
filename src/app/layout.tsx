@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "New Cuts Barbershop",
   description: "New Cuts Barbershop is a premier barbershop offering top-notch grooming services, including haircuts, beard trims, and styling. Our skilled barbers provide personalized care to ensure you leave looking and feeling your best.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

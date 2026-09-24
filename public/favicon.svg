@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="New Cuts Barbershop icon">
+  <rect width="128" height="128" rx="24" fill="#1C2331"/>
+  <circle cx="64" cy="64" r="34" fill="none" stroke="#F8F9FA" stroke-width="4"/>
+  <line x1="46" y1="78" x2="82" y2="42" stroke="#D98359" stroke-width="6" stroke-linecap="round"/>
+  <line x1="46" y1="42" x2="82" y2="78" stroke="#D98359" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="38" cy="86" r="6" fill="none" stroke="#F8F9FA" stroke-width="4"/>
+  <circle cx="90" cy="86" r="6" fill="none" stroke="#F8F9FA" stroke-width="4"/>
+</svg>
