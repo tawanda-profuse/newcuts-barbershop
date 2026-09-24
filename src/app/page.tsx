@@ -1,3 +1,4 @@
+// TODO: Include a large hero banner with a high-quality Unsplash barber image, your brand logo, and a highly visible "Book Now" link routing to /book
 import Image from "next/image";
 
 export default function Home() {
