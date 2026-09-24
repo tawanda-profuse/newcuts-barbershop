@@ -41,6 +41,12 @@ export default function Home() {
             >
               View Services
             </Link>
+            <Link
+              href="/about"
+              className="inline-flex items-center justify-center rounded-full border border-[var(--brand-secondary)]/40 bg-white px-7 py-3 text-base font-semibold text-[var(--brand-primary)] transition-colors hover:bg-[var(--muted)]/60"
+            >
+              Learn More
+            </Link>
           </div>
 
           <div className="flex flex-wrap gap-3 pt-2">
