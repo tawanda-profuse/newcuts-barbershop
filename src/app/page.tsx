@@ -1,4 +1,4 @@
-// TODO: Include a large hero banner with a high-quality Unsplash barber image, your brand logo, and a highly visible "Book Now" link routing to /book
+// TODO: Include a large hero banner with a high-quality Unsplash barber image, the brand logo (see src/components/Logo.tsx), and a highly visible "Book Now" link routing to /book. Reference globals.css for brand colors and typography. Ensure the hero section is responsive and visually appealing across devices.
 import Image from "next/image";
 
 export default function Home() {
