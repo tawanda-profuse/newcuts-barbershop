@@ -7,14 +7,18 @@ export default function PromoModal() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  if (pathname === '/book') return null;
-
   useEffect(() => {
+    if (pathname === '/book') {
+      setIsOpen(false);
+      return;
+    }
+
     // Delay popup by 3 seconds for better UX
     const timer = setTimeout(() => setIsOpen(true), 3000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
+  if (pathname === '/book') return null;
   if (!isOpen) return null;
 
   return (
