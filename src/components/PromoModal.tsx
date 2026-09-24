@@ -1,9 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { X } from 'lucide-react';
 
 export default function PromoModal() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  if (pathname === '/book') return null;
 
   useEffect(() => {
     // Delay popup by 3 seconds for better UX
