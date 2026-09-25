@@ -66,11 +66,11 @@ export default function BarberProfile({ params }: { params: Promise<{ slug: stri
               </ul>
             </div>
 
-            <div className="flex gap-4">
-              <Link href={`/book?barber=${barber.name}`} className="bg-[var(--brand-primary)] text-white px-6 py-3 rounded-full font-semibold hover:bg-slate-800 transition">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Link href={`/book?barber=${barber.name}`} className="bg-[var(--brand-primary)] text-white px-6 py-3 rounded-full font-semibold hover:bg-slate-800 transition text-center">
                 Book {barber.name}
               </Link>
-              <Link href="/about" className="border border-[var(--muted)] px-6 py-3 rounded-full font-semibold hover:bg-[var(--muted)]/50 transition">
+              <Link href="/about" className="border border-[var(--muted)] px-6 py-3 rounded-full font-semibold hover:bg-[var(--muted)]/50 transition text-center">
                 Back to Team
               </Link>
             </div>
