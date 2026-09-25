@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import HomeLink from "@/components/HomeLink";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import PromoModal from "@/components/PromoModal";
 
 const geistSans = Geist({
@@ -28,21 +29,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <HomeLink />
+      <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+        <Header />
         <div className="flex min-h-screen flex-col">
           <div className="flex-1">{children}</div>
-          <footer className="border-t border-[var(--muted)] bg-white/80">
-            <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-6 py-4 text-sm text-[var(--foreground)]/70">
-              <span aria-label="Copyright">©</span>
-              <span>{new Date().getFullYear()}</span>
-              <span>New Cuts Barbershop</span>
-              <span className="text-[var(--brand-secondary)]">•</span>
-              <a href="/terms" className="transition-colors hover:text-[var(--brand-primary)]">
-                Terms
-              </a>
-            </div>
-          </footer>
+          <Footer />
         </div>
         <PromoModal />
       </body>
