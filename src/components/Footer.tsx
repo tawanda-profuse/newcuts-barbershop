@@ -1,6 +1,37 @@
 import Link from 'next/link';
+import type { SVGProps } from 'react';
 import { Clock3, MapPin, Phone, Send } from 'lucide-react';
 import Logo from '@/components/Logo';
+
+type SocialIconProps = SVGProps<SVGSVGElement> & {
+  size?: number;
+};
+
+function InstagramIcon({ size = 16, ...props }: SocialIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4.25" />
+      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ size = 16, ...props }: SocialIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" {...props}>
+      <path d="M13.5 21v-8h2.7l.4-3h-3.1V7.4c0-.9.3-1.5 1.6-1.5H16V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V10H7v3h2.3v8h4.2Z" />
+    </svg>
+  );
+}
+
+function XIcon({ size = 16, ...props }: SocialIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" {...props}>
+      <path d="M18.9 2H22l-7.1 8.1L23.2 22h-6.4l-5-6.7L6.3 22H3.2l7.6-8.7L.8 2h6.5l4.5 6.1L18.9 2Zm-1.1 18h1.8L7.2 3.9H5.3L17.8 20Z" />
+    </svg>
+  );
+}
 
 const navigation = [
   { href: '/', label: 'Home' },
@@ -11,9 +42,9 @@ const navigation = [
 ];
 
 const socials = [
-  { href: 'https://instagram.com', label: 'Instagram', mark: 'IG' },
-  { href: 'https://facebook.com', label: 'Facebook', mark: 'FB' },
-  { href: 'https://x.com', label: 'X / Twitter', mark: 'X' },
+  { href: 'https://instagram.com', label: 'Instagram', icon: InstagramIcon },
+  { href: 'https://facebook.com', label: 'Facebook', icon: FacebookIcon },
+  { href: 'https://x.com', label: 'X / Twitter', icon: XIcon },
 ];
 
 const hours = [
@@ -38,16 +69,16 @@ export default function Footer() {
             </p>
 
             <div className="mt-6 flex items-center gap-3">
-              {socials.map(({ href, label, mark }) => (
+              {socials.map(({ href, label, icon: Icon }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-xs font-bold text-white transition-colors hover:bg-white/10"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10"
                 >
-                  {mark}
+                  <Icon size={16} />
                 </a>
               ))}
             </div>

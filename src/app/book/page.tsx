@@ -4,25 +4,35 @@ import { generateGoogleCalendarUrl, downloadIcsFile, BookingDetails } from '@/li
 
 export default function BookingPage() {
   const [isBooked, setIsBooked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [booking, setBooking] = useState<BookingDetails | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
-    // Create a date object from the selected date and time
-    const dateStr = `${formData.get('date')}T${formData.get('time')}`;
-    const appointmentDate = new Date(dateStr);
+    const form = e.currentTarget;
+    setIsSubmitting(true);
 
-    const newBooking: BookingDetails = {
-      service: formData.get('service') as string,
-      barber: formData.get('barber') as string,
-      date: appointmentDate,
-      customerName: formData.get('name') as string,
-    };
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 700));
 
-    setBooking(newBooking);
-    setIsBooked(true);
+      const formData = new FormData(form);
+
+      // Create a date object from the selected date and time in the browser's local timezone
+      const dateStr = `${formData.get('date')}T${formData.get('time')}`;
+      const appointmentDate = new Date(dateStr);
+
+      const newBooking: BookingDetails = {
+        service: formData.get('service') as string,
+        barber: formData.get('barber') as string,
+        date: appointmentDate,
+        customerName: formData.get('name') as string,
+      };
+
+      setBooking(newBooking);
+      setIsBooked(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -60,8 +70,12 @@ export default function BookingPage() {
             <label className="block text-sm font-medium text-gray-700">Full Name</label>
             <input type="text" name="name" required className="mt-1 block w-full p-2 border rounded-md" />
           </div>
-          <button type="submit" className="w-full bg-slate-900 text-white p-3 rounded-md hover:bg-slate-800 transition">
-            Confirm Booking
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-slate-900 text-white p-3 rounded-md hover:bg-slate-800 transition disabled:cursor-not-allowed disabled:bg-slate-500"
+          >
+            {isSubmitting ? 'Confirming booking...' : 'Confirm Booking'}
           </button>
         </form>
       ) : (
