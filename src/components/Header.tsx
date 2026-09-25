@@ -11,7 +11,6 @@ const navItems = [
   { href: '/about', label: 'About' },
   { href: '/services', label: 'Services' },
   { href: '/gallery', label: 'Gallery' },
-  { href: '/terms', label: 'Terms' },
 ];
 
 export default function Header() {
@@ -55,7 +54,7 @@ export default function Header() {
               href="/terms"
               className="rounded-full border border-[var(--muted)] bg-white px-4 py-2 text-sm font-medium text-[var(--brand-primary)] transition-colors hover:border-[var(--brand-secondary)]"
             >
-              Policies
+              Terms
             </Link>
             <Link
               href="/book"

@@ -13,6 +13,7 @@ const shopLocation = {
 const barberOptions = [
   { value: 'Marcus', label: 'Marcus (Master Barber)' },
   { value: 'David', label: 'David (Fade Specialist)' },
+  {value: 'Jason', label: 'Jason (Barber)'},
 ];
 
 function BookingPageContent() {

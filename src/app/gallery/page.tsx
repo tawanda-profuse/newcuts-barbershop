@@ -16,6 +16,7 @@ const portfolio = [
   { id: 7, category: 'Kids', image: 'https://images.pexels.com/photos/7697358/pexels-photo-7697358.jpeg', title: 'Kids Fade' },
   { id: 8, category: 'Kids', image: 'https://images.pexels.com/photos/37836122/pexels-photo-37836122.jpeg', title: 'Kids Classic Cuts' },
   { id: 9, category: 'Kids', image: 'https://images.pexels.com/photos/29317630/pexels-photo-29317630.jpeg', title: 'Kids Dreads' },
+  { id: 10, category: 'Classic', image: 'https://images.pexels.com/photos/7697224/pexels-photo-7697224.jpeg', title: 'Classic cuts' },
 ];
 
 export default function GalleryPage() {

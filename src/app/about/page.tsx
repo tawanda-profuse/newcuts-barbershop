@@ -13,6 +13,14 @@ const barbers = [
     bio: "Marcus blends classic barbering technique with modern texture styling, helping clients achieve polished cuts that feel personal and confident.",
   },
   {
+    name: "Jason",
+    title: "Jason Barber",
+    years: "9 years",
+    image:
+      "https://images.pexels.com/photos/7697285/pexels-photo-7697285.jpeg",
+    bio: "Jason brings a fresh perspective to traditional barbering, creating styles that are both timeless and contemporary.",
+  },
+  {
     name: "David",
     title: "Fade Specialist",
     years: "9 years",

@@ -12,6 +12,13 @@ const teamData = {
     bio: "With over 12 years behind the chair, Marcus blends classic barbering technique with modern texture styling. He specializes in executive contours and complete style transformations, ensuring every client leaves feeling personal and confident.",
     specialties: ["Classic Scissor Cuts", "Texture Styling", "Hot Towel Shaves"]
   },
+  jason: {
+    name: "Jason",
+    title: "Jason Barber",
+    image: "https://images.pexels.com/photos/7697285/pexels-photo-7697285.jpeg",
+    bio: "Jason brings a fresh perspective to traditional barbering, creating styles that are both timeless and contemporary.",
+    specialties: ["Classic Scissor Cuts", "Texture Styling", "Hot Towel Shaves"]
+  },
   david: {
     name: "David",
     title: "Fade Specialist",
