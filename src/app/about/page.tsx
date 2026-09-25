@@ -90,35 +90,38 @@ export default function AboutPage() {
 
           <div className="grid gap-6 md:grid-cols-2">
             {barbers.map((barber, index) => (
-              <motion.article
-                key={barber.name}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: index * 0.1 }}
-                className="overflow-hidden rounded-[1.5rem] border border-[var(--muted)] bg-white shadow-[0_18px_40px_rgba(28,35,49,0.06)]"
-              >
-                <img
-                  src={barber.image}
-                  alt={`${barber.name} at New Cuts Barbershop`}
-                  className="h-72 w-full object-cover"
-                />
-                <div className="space-y-4 p-6">
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--brand-secondary)]">
-                      {barber.title}
-                    </p>
-                    <h3 className="mt-2 text-2xl font-bold text-[var(--brand-primary)]">
-                      {barber.name}
-                    </h3>
-                    <p className="text-sm font-medium text-[var(--brand-primary)]/70">
-                      {barber.years} of experience
+              <Link href={`/team/${barber.name.toLowerCase()}`} key={barber.name} className="block group">
+                <motion.article
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: index * 0.1 }}
+                  className="overflow-hidden h-full rounded-[1.5rem] border border-[var(--muted)] bg-white shadow-[0_18px_40px_rgba(28,35,49,0.06)] transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-[0_25px_50px_rgba(28,35,49,0.12)]"
+                >
+                  <div className="overflow-hidden">
+                    <img
+                      src={barber.image}
+                      alt={`${barber.name} at New Cuts Barbershop`}
+                      className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="space-y-4 p-6">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--brand-secondary)]">
+                        {barber.title}
+                      </p>
+                      <h3 className="mt-2 text-2xl font-bold text-[var(--brand-primary)] group-hover:text-[var(--brand-accent)] transition-colors">
+                        {barber.name}
+                      </h3>
+                      <p className="text-sm font-medium text-[var(--brand-primary)]/70">
+                        {barber.years} of experience
+                      </p>
+                    </div>
+                    <p className="text-base leading-7 text-[var(--foreground)]/75">
+                      {barber.bio}
                     </p>
                   </div>
-                  <p className="text-base leading-7 text-[var(--foreground)]/75">
-                    {barber.bio}
-                  </p>
-                </div>
-              </motion.article>
+                </motion.article>
+              </Link>
             ))}
           </div>
         </div>
