@@ -14,7 +14,7 @@ const teamData = {
   },
   jason: {
     name: "Jason",
-    title: "Jason Barber",
+    title: "All Round Specialist",
     image: "https://images.pexels.com/photos/7697285/pexels-photo-7697285.jpeg",
     bio: "Jason brings a fresh perspective to traditional barbering, creating styles that are both timeless and contemporary.",
     specialties: ["Classic Scissor Cuts", "Texture Styling", "Hot Towel Shaves"]

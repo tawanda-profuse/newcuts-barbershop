@@ -14,7 +14,7 @@ const barbers = [
   },
   {
     name: "Jason",
-    title: "Jason Barber",
+    title: "All Round Specialist",
     years: "9 years",
     image:
       "https://images.pexels.com/photos/7697285/pexels-photo-7697285.jpeg",
@@ -98,7 +98,12 @@ export default function AboutPage() {
 
           <div className="grid gap-6 md:grid-cols-2">
             {barbers.map((barber, index) => (
-              <Link href={`/team/${barber.name.toLowerCase()}`} key={barber.name} className="block group">
+              <Link
+                href={`/team/${barber.name.toLowerCase()}`}
+                key={barber.name}
+                className="block group"
+                title="Click to view details"
+              >
                 <motion.article
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -109,7 +114,7 @@ export default function AboutPage() {
                     <img
                       src={barber.image}
                       alt={`${barber.name} at New Cuts Barbershop`}
-                      className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="h-80 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="space-y-4 p-6">

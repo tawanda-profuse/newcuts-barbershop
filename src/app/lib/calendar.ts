@@ -7,22 +7,48 @@ export interface BookingDetails {
   customerName: string;
 }
 
+const shopName = 'New Cuts Barbershop';
+const shopLocation = '145 Mercer Street, Suite 4, New York, NY 10012';
+
 const toCalendarUtcStamp = (date: Date) => {
-  const iso = date.toISOString();
-  return `${iso.slice(0, 4)}${iso.slice(5, 7)}${iso.slice(8, 10)}T${iso.slice(11, 19)}Z`;
+  return `${date.toISOString().replace(/[-:]/g, '').split('.')[0]}Z`;
+};
+
+const formatAppointmentDisplay = (date: Date) => {
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  });
+
+  return formatter.format(date);
 };
 
 export const generateGoogleCalendarUrl = (booking: BookingDetails) => {
-  const endDate = addMinutes(booking.date, 45); // Assume 45 min slots
+  const endDate = addMinutes(booking.date, 45);
   const formattedStart = toCalendarUtcStamp(booking.date);
   const formattedEnd = toCalendarUtcStamp(endDate);
+  const appointmentWindow = `${formatAppointmentDisplay(booking.date)} - ${formatAppointmentDisplay(endDate)}`;
 
   const params = new URLSearchParams({
     action: 'TEMPLATE',
-    text: `${booking.service} with ${booking.barber} at New Cuts Barbershop`,
+    text: `${booking.service} with ${booking.barber} | ${shopName}`,
     dates: `${formattedStart}/${formattedEnd}`,
-    details: `Appointment for ${booking.customerName}. Thank you for booking with New Cuts Barbershop`,
-    location: '145 Mercer Street, Suite 4, New York, NY 10012',
+    details: [
+      `Hey ${booking.customerName}, we can't wait to see you!`,
+      '',
+      `Service: ${booking.service}`,
+      `Barber: ${booking.barber}`,
+      `Appointment time: ${appointmentWindow}`,
+      `Location: ${shopLocation}`,
+      '',
+      `Thanks for choosing ${shopName} — see you soon!`,
+    ].join('\n'),
+    location: shopLocation,
   });
 
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
@@ -36,13 +62,13 @@ export const downloadIcsFile = (booking: BookingDetails) => {
   const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
-URL:https://your-barbershop.example
+URL:https://newcutsbarbershop.com
+DTSTAMP:${toCalendarUtcStamp(new Date())}
 DTSTART:${formattedStart}
 DTEND:${formattedEnd}
-SUMMARY:${booking.service} with ${booking.barber}
-DESCRIPTION:Appointment for ${booking.customerName} at New Cuts Barbershop
-LOCATION: 145 Mercer Street, Suite 4
-New York, NY 10012
+SUMMARY:${booking.service} with ${booking.barber} | ${shopName}
+DESCRIPTION:Hey ${booking.customerName}\, we can't wait to see you!\n\nService: ${booking.service}\nBarber: ${booking.barber}\nAppointment time: ${formatAppointmentDisplay(booking.date)} - ${formatAppointmentDisplay(endDate)}\nLocation: ${shopLocation}\n\nThanks for choosing ${shopName} — see you soon!
+LOCATION:${shopLocation}
 END:VEVENT
 END:VCALENDAR`;
 

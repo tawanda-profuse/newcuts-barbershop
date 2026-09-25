@@ -13,7 +13,7 @@ const shopLocation = {
 const barberOptions = [
   { value: 'Marcus', label: 'Marcus (Master Barber)' },
   { value: 'David', label: 'David (Fade Specialist)' },
-  {value: 'Jason', label: 'Jason (Barber)'},
+  {value: 'Jason', label: 'Jason (All Round Specialist)'},
 ];
 
 function BookingPageContent() {
@@ -46,8 +46,16 @@ function BookingPageContent() {
       await new Promise((resolve) => setTimeout(resolve, 700));
 
       const formData = new FormData(form);
-      const dateStr = `${formData.get('date')}T${formData.get('time')}`;
-      const appointmentDate = new Date(dateStr);
+      const selectedDate = String(formData.get('date') ?? '');
+      const selectedTime = String(formData.get('time') ?? '');
+
+      if (!selectedDate || !selectedTime) {
+        return;
+      }
+
+      const [year, month, day] = selectedDate.split('-').map(Number);
+      const [hours, minutes] = selectedTime.split(':').map(Number);
+      const appointmentDate = new Date(year, month - 1, day, hours, minutes);
 
       const newBooking: BookingDetails = {
         service: formData.get('service') as string,
@@ -87,6 +95,8 @@ function BookingPageContent() {
                       <option value="Classic Haircut">Classic Haircut - $30</option>
                       <option value="Skin Fade">Skin Fade - $35</option>
                       <option value="Beard Trim">Beard Trim - $20</option>
+                      <option value="Kids Cut">Kids Cut - $22</option>
+                      <option value="Custom Style">Custom Style - $50</option>
                     </select>
                   </div>
                   <div>
@@ -135,8 +145,8 @@ function BookingPageContent() {
               className="flex-1 rounded-2xl bg-white p-8 text-center shadow-lg shadow-slate-200/80 ring-1 ring-slate-200"
             >
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-2xl font-bold text-green-600">✓</div>
-              <h2 className="mt-6 text-2xl font-bold text-slate-900">Booking Confirmed!</h2>
-              <p className="mt-3 text-gray-600">Your appointment for a {booking?.service} with {booking?.barber} is set.</p>
+              <h2 className="mt-6 text-2xl font-bold text-slate-900">You&apos;re all set, {booking?.customerName?.split(' ')[0]}!</h2>
+              <p className="mt-3 text-gray-600">We&apos;ve booked your {booking?.service} with {booking?.barber}. We can&apos;t wait to see you — add it to your calendar so you don&apos;t miss it.</p>
 
               <div className="mt-8 flex flex-col justify-center gap-4 border-t border-slate-200 pt-6 sm:flex-row">
                 <a
