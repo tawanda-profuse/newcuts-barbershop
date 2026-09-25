@@ -1,21 +1,38 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { X } from 'lucide-react';
 
-const categories = ['All', 'Fades', 'Classic', 'Beards'];
+const categories = ['All', 'Fades', 'Classic', 'Beards', 'Kids'];
 
 const portfolio = [
   { id: 1, category: 'Fades', image: 'https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=800&q=80', title: 'High Skin Fade' },
   { id: 2, category: 'Classic', image: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=800&q=80', title: 'Executive Contour' },
-  { id: 3, category: 'Beards', image: 'https://images.unsplash.com/photo-1588773727339-fc2d3345cb34?auto=format&fit=crop&w=800&q=80', title: 'Sculpted Beard Trim' },
+  { id: 3, category: 'Beards', image: 'https://images.pexels.com/photos/19140177/pexels-photo-19140177.jpeg', title: 'Sculpted Beard Trim' },
   { id: 4, category: 'Fades', image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80', title: 'Mid Drop Fade' },
-  { id: 5, category: 'Classic', image: 'https://images.unsplash.com/photo-1593726858169-122e2327090b?auto=format&fit=crop&w=800&q=80', title: 'Textured Pompadour' },
-  { id: 6, category: 'Beards', image: 'https://images.unsplash.com/photo-1620331317312-7489ab31f496?auto=format&fit=crop&w=800&q=80', title: 'Hot Towel Lineup' },
+  { id: 5, category: 'Classic', image: 'https://images.pexels.com/photos/7447146/pexels-photo-7447146.jpeg', title: 'Textured Pompadour' },
+  { id: 6, category: 'Beards', image: 'https://images.pexels.com/photos/7697677/pexels-photo-7697677.jpeg', title: 'Hot Towel Lineup' },
+  { id: 7, category: 'Kids', image: 'https://images.pexels.com/photos/7697358/pexels-photo-7697358.jpeg', title: 'Kids Fade' },
+  { id: 8, category: 'Kids', image: 'https://images.pexels.com/photos/37836122/pexels-photo-37836122.jpeg', title: 'Kids Classic Cuts' },
+  { id: 9, category: 'Kids', image: 'https://images.pexels.com/photos/29317630/pexels-photo-29317630.jpeg', title: 'Kids Dreads' },
 ];
 
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedImage, setSelectedImage] = useState<typeof portfolio[0] | null>(null);
+
+  // Prevent scrolling when the modal is open
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedImage]);
 
   const filteredPortfolio = portfolio.filter(
     (item) => activeCategory === 'All' || item.category === activeCategory
@@ -62,12 +79,18 @@ export default function GalleryPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-[var(--muted)]"
+                onClick={() => setSelectedImage(item)}
+                className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-[var(--muted)] cursor-zoom-in"
               >
-                <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--brand-primary)]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                  <p className="text-[var(--brand-accent)] text-sm font-bold uppercase tracking-wider">{item.category}</p>
-                  <h3 className="text-white text-xl font-bold">{item.title}</h3>
+                <motion.img 
+                  layoutId={`img-${item.id}`}
+                  src={item.image} 
+                  alt={item.title} 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--brand-primary)]/90 via-[var(--brand-primary)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                  <p className="text-[var(--brand-accent)] text-sm font-bold uppercase tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{item.category}</p>
+                  <h3 className="text-white text-xl font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">{item.title}</h3>
                 </div>
               </motion.div>
             ))}
@@ -80,6 +103,46 @@ export default function GalleryPage() {
           </Link>
         </div>
       </div>
+
+      {/* Full Screen Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-8 cursor-zoom-out"
+          >
+            <button 
+              className="absolute top-6 right-6 md:top-10 md:right-10 text-white/70 hover:text-white transition-colors z-50 p-2"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close modal"
+            >
+              <X size={32} />
+            </button>
+            
+            <div className="relative w-full max-w-5xl max-h-[85vh] flex flex-col items-center justify-center cursor-default" onClick={(e) => e.stopPropagation()}>
+              <motion.img
+                layoutId={`img-${selectedImage.id}`}
+                src={selectedImage.image}
+                alt={selectedImage.title}
+                className="w-full h-full max-h-[75vh] object-contain rounded-lg"
+              />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ delay: 0.1 }}
+                className="mt-6 text-center"
+              >
+                <h3 className="text-3xl font-bold text-white mb-2">{selectedImage.title}</h3>
+                <p className="text-[var(--brand-accent)] font-semibold uppercase tracking-widest">{selectedImage.category}</p>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
